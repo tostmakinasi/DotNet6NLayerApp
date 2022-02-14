@@ -24,6 +24,8 @@ namespace NLayer.Repository
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature { Id =1, Color = "Kırmızı", Width = 100, Height = 100, ProductId = 1 });
         }
     }
 }
