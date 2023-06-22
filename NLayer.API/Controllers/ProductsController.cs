@@ -74,7 +74,7 @@ namespace NLayer.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateById(ProductUpdateDto productDto)
+        public async Task<IActionResult> Update(ProductUpdateDto productDto)
         {
             await _service.UpdateAsync(_mapper.Map<Product>(productDto));
             
