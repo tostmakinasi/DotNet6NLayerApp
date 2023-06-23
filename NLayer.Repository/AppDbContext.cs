@@ -27,5 +27,39 @@ namespace NLayer.Repository
 
             modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature { Id =1, Color = "Kırmızı", Width = 100, Height = 100, ProductId = 1 });
         }
+
+        public override int SaveChanges()
+        {
+            OnBeforeSaving();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+        private void OnBeforeSaving()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
+                        entry.CurrentValues[nameof(BaseEntity.IsDeleted)] = true;
+                        entry.CurrentValues[nameof(BaseEntity.UpdatedDate)] = DateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        entry.CurrentValues[nameof(BaseEntity.UpdatedDate)] = DateTime.Now;
+                        break;
+                    case EntityState.Added:
+                        entry.CurrentValues[nameof(BaseEntity.CreatedDate)] = DateTime.Now;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

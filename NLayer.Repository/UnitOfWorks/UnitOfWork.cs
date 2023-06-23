@@ -1,4 +1,7 @@
-﻿using NLayer.Core.UnitOfWorks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using NLayer.Core;
+using NLayer.Core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +27,8 @@ namespace NLayer.Repository.UnitOfWorks
         {
             await _context.SaveChangesAsync();
         }
+
+
+      
     }
 }
