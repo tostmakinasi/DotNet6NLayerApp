@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.Features;
 using NLayer.Core.DTOs;
 using NLayer.Service.Exceptions;
 using System.Text.Json;
@@ -34,6 +33,6 @@ namespace NLayer.API.Middlewares
                 });
             });
         }
-      
+
     }
 }

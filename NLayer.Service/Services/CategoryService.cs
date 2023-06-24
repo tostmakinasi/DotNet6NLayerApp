@@ -4,20 +4,15 @@ using NLayer.Core.DTOs;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
-    public class CategoryServiceWithNoCaching : Service<Category>, ICategoryService
+    public class CategoryService : Service<Category>, ICategoryService
     {
         private readonly ICategoryRepository _repository;
 
         private readonly IMapper _mapper;
-        public CategoryServiceWithNoCaching(IUnitOfWork unitOfWork, ICategoryRepository repository, IMapper mapper) : base(unitOfWork, repository)
+        public CategoryService(IUnitOfWork unitOfWork, ICategoryRepository repository, IMapper mapper) : base(unitOfWork, repository)
         {
             _repository = repository;
             _mapper = mapper;
