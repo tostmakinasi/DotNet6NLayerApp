@@ -13,7 +13,7 @@ using Module = Autofac.Module;
 
 namespace NLayer.API.Modules
 {
-    public class RepoServiceModule:Module
+    public class RepoServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

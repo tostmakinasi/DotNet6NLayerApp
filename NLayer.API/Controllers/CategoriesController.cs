@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.Core;
 using NLayer.Core.DTOs;
@@ -24,7 +23,7 @@ namespace NLayer.API.Controllers
             var categories = await _service.GetAllAsync();
 
             var categoriesDtos = _mapper.Map<List<CategoryDto>>(categories.ToList());
-            
+
             return CreateActionResult<List<CategoryDto>>(CustomResponseDto<List<CategoryDto>>.Success(200, categoriesDtos));
         }
 
@@ -67,7 +66,7 @@ namespace NLayer.API.Controllers
         [HttpPost("/[action]")]
         public async Task<IActionResult> SaveRange(List<CategoryDto> categoryDtos)
         {
-            var category = await _service.AddRangeAsync(_mapper.Map<List<Category>>(categoryDtos));  
+            var category = await _service.AddRangeAsync(_mapper.Map<List<Category>>(categoryDtos));
 
             var categoriesDtos = _mapper.Map<List<CategoryDto>>(categoryDtos);
 
@@ -77,7 +76,7 @@ namespace NLayer.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(CategoryDto categoryDto)
         {
-            var category = _mapper.Map<Category>(categoryDto);  
+            var category = _mapper.Map<Category>(categoryDto);
 
             await _service.UpdateAsync(category);
 

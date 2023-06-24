@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using NLayer.Core;
 using NLayer.Core.DTOs;
@@ -7,12 +6,7 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Caching
 {
@@ -31,7 +25,7 @@ namespace NLayer.Caching
             _repository = repository;
             _unitOfWork = unitOfWork;
 
-            if(!_memoryCache.TryGetValue(CacheProductKey, out _))
+            if (!_memoryCache.TryGetValue(CacheProductKey, out _))
             {
                 _memoryCache.Set(CacheProductKey, _repository.GetAllProductsWithCategory().Result);
             }
@@ -68,7 +62,7 @@ namespace NLayer.Caching
             var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
             var productWithCategoryDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
 
-            return Task.FromResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200,productWithCategoryDto));
+            return Task.FromResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productWithCategoryDto));
         }
 
         public Task<Product> GetByIdAsync(int id)
@@ -86,7 +80,7 @@ namespace NLayer.Caching
         public Task<CustomResponseDto<ProductWithCategoryDto>> GetProductsWithCategoryById(int id)
         {
             var product = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
-            if(product == null)
+            if (product == null)
             {
                 throw new NotFoundException($"Product({id}) not foun");
             }
@@ -114,7 +108,7 @@ namespace NLayer.Caching
             _repository.Update(entity);
             await _unitOfWork.CommitChangesAsync();
             await CacheAllProducts();
-            
+
         }
 
         public IQueryable<Product> Where(Expression<Func<Product, bool>> expression)
@@ -125,7 +119,7 @@ namespace NLayer.Caching
 
         public async Task CacheAllProducts()
         {
-            _memoryCache.Set(CacheProductKey, await _repository.GetAllProductsWithCategory()); 
+            _memoryCache.Set(CacheProductKey, await _repository.GetAllProductsWithCategory());
         }
     }
 }

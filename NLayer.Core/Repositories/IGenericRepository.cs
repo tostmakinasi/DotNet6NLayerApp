@@ -6,13 +6,13 @@ namespace NLayer.Core.Repositories
     {
         Task<T> GetByIdAsync(int id);
         IQueryable<T> GetAll();
-        IQueryable<T> Where(Expression<Func<T,bool>> expression);
+        IQueryable<T> Where(Expression<Func<T, bool>> expression);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddRangeAsync(IEnumerable<T> items);
         Task AddAsync(T entity);
         void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> items);
-        
+
     }
 }

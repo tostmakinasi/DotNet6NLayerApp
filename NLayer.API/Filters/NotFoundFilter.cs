@@ -19,7 +19,7 @@ namespace NLayer.API.Filters
         {
             var idValue = context.ActionArguments.Values.FirstOrDefault();
 
-            if(idValue == null)
+            if (idValue == null)
             {
                 await next.Invoke();
                 return;
@@ -34,7 +34,7 @@ namespace NLayer.API.Filters
                 return;
             }
 
-            context.Result = new NotFoundObjectResult(CustomResponseDto<T>.Fail(404, $"{typeof(T).Name}({id}) not found")); 
+            context.Result = new NotFoundObjectResult(CustomResponseDto<T>.Fail(404, $"{typeof(T).Name}({id}) not found"));
         }
     }
 }
