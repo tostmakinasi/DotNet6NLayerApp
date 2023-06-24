@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.API.Filters;
 using NLayer.Core;
@@ -79,7 +78,7 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> Update(ProductUpdateDto productDto)
         {
             await _service.UpdateAsync(_mapper.Map<Product>(productDto));
-            
+
             return CreateActionResult<NoContentDto>(CustomResponseDto<NoContentDto>.Success(204));
         }
 

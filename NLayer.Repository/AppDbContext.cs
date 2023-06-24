@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Repository
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -25,7 +20,7 @@ namespace NLayer.Repository
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature { Id =1, Color = "Kırmızı", Width = 100, Height = 100, ProductId = 1 });
+            modelBuilder.Entity<ProductFeature>().HasData(new ProductFeature { Id = 1, Color = "Kırmızı", Width = 100, Height = 100, ProductId = 1 });
         }
 
         public override int SaveChanges()

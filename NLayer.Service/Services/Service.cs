@@ -3,12 +3,7 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
@@ -26,7 +21,7 @@ namespace NLayer.Service.Services
         public async Task<T> AddAsync(T entity)
         {
             await _repository.AddAsync(entity);
-            await _unitOfWork.CommitChangesAsync(); 
+            await _unitOfWork.CommitChangesAsync();
 
             return entity;
         }
@@ -34,7 +29,7 @@ namespace NLayer.Service.Services
         public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> items)
         {
             await _repository.AddRangeAsync(items);
-            await _unitOfWork.CommitChangesAsync(); 
+            await _unitOfWork.CommitChangesAsync();
 
             return items;
         }
@@ -53,7 +48,7 @@ namespace NLayer.Service.Services
         {
             var hasData = await _repository.GetByIdAsync(id);
 
-            if(hasData == null)
+            if (hasData == null)
             {
                 throw new NotFoundException($"{typeof(T).Name} not found");
             }
@@ -64,7 +59,7 @@ namespace NLayer.Service.Services
         public async Task RemoveAsync(T entity)
         {
             _repository.Remove(entity);
-            await _unitOfWork.CommitChangesAsync(); 
+            await _unitOfWork.CommitChangesAsync();
         }
 
         public async Task RemoveRangeAsync(IEnumerable<T> items)
