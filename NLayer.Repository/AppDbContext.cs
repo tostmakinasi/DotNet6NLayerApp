@@ -39,21 +39,26 @@ namespace NLayer.Repository
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                switch (entry.State)
+                if (entry.Entity is BaseEntity entityReferance)
                 {
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Modified;
-                        entry.CurrentValues[nameof(BaseEntity.IsDeleted)] = true;
-                        entry.CurrentValues[nameof(BaseEntity.UpdatedDate)] = DateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        entry.CurrentValues[nameof(BaseEntity.UpdatedDate)] = DateTime.Now;
-                        break;
-                    case EntityState.Added:
-                        entry.CurrentValues[nameof(BaseEntity.CreatedDate)] = DateTime.Now;
-                        break;
-                    default:
-                        break;
+                    switch (entry.State)
+                    {
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified;
+                            entityReferance.IsDeleted = true;
+                            entityReferance.UpdatedDate = DateTime.Now;
+                            Entry(entityReferance).Property(x => x.CreatedDate).IsModified = false;
+                            break;
+                        case EntityState.Modified:
+                            entityReferance.UpdatedDate = DateTime.Now;
+                            Entry(entityReferance).Property(x => x.CreatedDate).IsModified = false;
+                            break;
+                        case EntityState.Added:
+                            entityReferance.CreatedDate = DateTime.Now;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
