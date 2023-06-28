@@ -17,13 +17,13 @@ namespace NLayer.Service.Services
             _repository = repository;
         }
 
-        public async Task<List<ProductWithCategoryDto>> GetAllProductsWithCategory()
+        public async Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetAllProductsWithCategory()
         {
             var products = await _repository.GetAllProductsWithCategory();
 
             var productsDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
 
-            return productsDto;
+            return CustomResponseDto < List < ProductWithCategoryDto >> .Success(200,productsDto);
         }
 
         //public async Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetProductsWithCategoryByCategoryId(int categoryId)
@@ -35,13 +35,13 @@ namespace NLayer.Service.Services
         //    return CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productsDto);
         //}
 
-        public async Task<ProductWithCategoryDto> GetProductsWithCategoryById(int id)
+        public async Task<CustomResponseDto<ProductWithCategoryDto>> GetProductsWithCategoryById(int id)
         {
             var products = await _repository.GetProductsWithCategoryById(id);
 
             var productsDto = _mapper.Map<ProductWithCategoryDto>(products);
 
-            return productsDto;
+            return CustomResponseDto < ProductWithCategoryDto > .Success(200,productsDto);
         }
     }
 }

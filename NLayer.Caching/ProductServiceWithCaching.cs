@@ -57,12 +57,12 @@ namespace NLayer.Caching
             return Task.FromResult(_memoryCache.Get<IEnumerable<Product>>(CacheProductKey));
         }
 
-        public Task<List<ProductWithCategoryDto>> GetAllProductsWithCategory()
+        public Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetAllProductsWithCategory()
         {
             var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
             var productWithCategoryDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
 
-            return Task.FromResult(productWithCategoryDto);
+            return Task.FromResult(CustomResponseDto < List < ProductWithCategoryDto >>.Success(200, productWithCategoryDto));
         }
 
         public Task<Product> GetByIdAsync(int id)
@@ -77,7 +77,7 @@ namespace NLayer.Caching
             return Task.FromResult(product);
         }
 
-        public Task<ProductWithCategoryDto> GetProductsWithCategoryById(int id)
+        public Task<CustomResponseDto<ProductWithCategoryDto>> GetProductsWithCategoryById(int id)
         {
             var product = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
             if (product == null)
@@ -86,7 +86,7 @@ namespace NLayer.Caching
             }
             var productWithCategoryDto = _mapper.Map<ProductWithCategoryDto>(product);
 
-            return Task.FromResult(productWithCategoryDto);
+            return Task.FromResult(CustomResponseDto < ProductWithCategoryDto >.Success(200, productWithCategoryDto));
         }
 
         public async Task RemoveAsync(Product entity)
