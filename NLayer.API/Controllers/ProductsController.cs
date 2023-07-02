@@ -40,7 +40,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult<ProductDto>(CustomResponseDto<ProductDto>.Success(200, productDto));
         }
 
-        [HttpGet("/[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAllProductsWithCategory()
         {
             var products = await _service.GetAllProductsWithCategory();
@@ -48,7 +48,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(products);
         }
 
-        [HttpGet("/[action]/{id}")]
+        [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetProductsWithCategory(int id)
         {
             var product = await _service.GetProductsWithCategoryById(id);

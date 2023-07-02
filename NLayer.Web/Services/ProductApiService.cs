@@ -14,7 +14,7 @@ namespace NLayer.Web.Services
 
         public async Task<List<ProductWithCategoryDto>> GetAllProductsWithCategoryAsync()
         {
-            var response = await _httpClient.GetFromJsonAsync<CustomResponseDto<List<ProductWithCategoryDto>>>("GetAllProductsWithCategory");
+            var response = await _httpClient.GetFromJsonAsync<CustomResponseDto<List<ProductWithCategoryDto>>>("products/GetAllProductsWithCategory");
 
             return response.Data;
 
